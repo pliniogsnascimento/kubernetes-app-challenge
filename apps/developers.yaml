@@ -3,29 +3,37 @@ kind: Namespace
 metadata:
   name: apps
 ---
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   labels:
     app: app-developers
   name: app-developers
   namespace: apps
 spec:
-  containers:
-  - image: pliniogsnascimento/rinha-de-backend-q3
-    name: app-developers
-    volumeMounts:
-    - name: config
-      mountPath: /app/config.yaml
-  volumes:
-  - name: config
-    configMap:
-      name: app-developers
-      items:
-      - key: config.yaml
-        path: config.yaml
-  dnsPolicy: ClusterFirst
-  restartPolicy: Always
+  selector:
+    matchLabels:
+      app: app-developers
+  template:
+    metadata:
+      labels:
+        app: app-developers
+    spec:
+      containers:
+      - image: pliniogsnascimento/rinha-de-backend-q3
+        name: app-developers
+        volumeMounts:
+        - name: config
+          mountPath: /app/config.yaml
+      volumes:
+      - name: config
+        configMap:
+          name: app-developers
+          items:
+          - key: config.yaml
+            path: config.yaml
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
 ---
 apiVersion: v1
 data:
