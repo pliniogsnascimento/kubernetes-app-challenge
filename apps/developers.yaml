@@ -3,6 +3,22 @@ kind: Namespace
 metadata:
   name: apps
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: app-developers
+    argocd.argoproj.io/instance: k8s-app-challenge
+  name: app-developers
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: app-developers
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,6 +38,9 @@ spec:
       containers:
       - image: pliniogsnascimento/rinha-de-backend-q3
         name: app-developers
+        ports:
+        - name: http
+          containerPort: 9090
         volumeMounts:
         - name: config
           mountPath: /app/config.yaml
