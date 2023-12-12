@@ -14,5 +14,37 @@ spec:
   containers:
   - image: pliniogsnascimento/rinha-de-backend-q3
     name: app-developers
+    volumeMounts:
+    - name: config
+      mountPath: /app/config.yaml
+  volumes:
+  - name: config
+    configMap:
+      name: app-developers
+      items:
+      - key: config.yaml
+        path: config.yaml
   dnsPolicy: ClusterFirst
   restartPolicy: Always
+---
+apiVersion: v1
+data:
+  config.yaml: |
+    db:
+      host: postgres.db
+      port: 5432
+      user: postgres
+      password: mysecretpassword
+      database: rinha_backend
+      defaultMaxConns: 8
+
+    server:
+      port: "9090"
+      rateLimiting:
+        enable: true
+        rate: 100
+        tokenBurst: 50
+kind: ConfigMap
+metadata:
+  namespace: apps
+  name: app-developers
