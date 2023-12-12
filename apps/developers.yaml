@@ -12,7 +12,7 @@ metadata:
   namespace: apps
 spec:
   containers:
-  - image: pliniogsnascimento/rinha-backend-q3
+  - image: pliniogsnascimento/rinha-de-backend-q3
     name: app-developers
   dnsPolicy: ClusterFirst
   restartPolicy: Always
