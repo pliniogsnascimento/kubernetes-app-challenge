@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: app-developers
+  name: app-developers
+spec:
+  containers:
+  - image: pliniogsnascimento/rinha-backend-q3
+    name: app-developers
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
