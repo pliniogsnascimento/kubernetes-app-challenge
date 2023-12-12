@@ -6,7 +6,7 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
+  namespace: apps
   labels:
     app: app-developers
     argocd.argoproj.io/instance: k8s-app-challenge
