@@ -25,13 +25,11 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /app/config.yaml
+          subPath: config.yaml
       volumes:
       - name: config
         configMap:
           name: app-developers
-          items:
-          - key: config.yaml
-            path: config.yaml
       dnsPolicy: ClusterFirst
       restartPolicy: Always
 ---
